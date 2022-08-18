@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Manga.Controlls.peices.searchBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:peices="clr-namespace:Manga.Controlls.peices"
+             xmlns:local="clr-namespace:Manga"
+             xmlns:controlls="clr-namespace:Manga.Controlls"
+             xmlns:converters="clr-namespace:Manga.Controlls.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="200" x:Name="root">
+    <UserControl.Resources>
+        <converters:percentConvert x:Key="valueConvert"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="{Binding ElementName=root, Path=ActualHeight}"/>
+        </Grid.ColumnDefinitions>
+        <Border x:Name="borderF" CornerRadius="20" Background="White">
+            <TextBox Margin="20,0,20,0" BorderThickness="0,0,0,0" Background="Transparent" KeyDown="key_Down" FontSize="{Binding ElementName=root, Path=ActualHeight, Converter={StaticResource valueConvert}}" TextAlignment="Left" Text="{Binding ElementName=root, Path=SearchText}" x:Name="txtS" MaxLines="1"/>
+        </Border>
+        <!--TextBox  BorderThickness="0,0,0,0" FontSize="{Binding ElementName=root, Path=ActualHeight, Converter={StaticResource valueConvert}}" TextAlignment="Left"  MaxLines="1"/-->
+        <controlls:cButton CornerRadus="100" BType="1" Grid.Column="1" MouseUp="border_MU"/>
+    </Grid>
+</UserControl>
