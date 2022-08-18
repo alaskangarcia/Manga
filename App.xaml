@@ -7,6 +7,7 @@
              xmlns:search="clr-namespace:Manga.Controlls.Search"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
         <!-- Colors -->
         <SolidColorBrush x:Key="d-primary1">#4B1D3F</SolidColorBrush>
         <SolidColorBrush x:Key="d-secondary1">#962246</SolidColorBrush>
@@ -16,7 +17,7 @@
         <SolidColorBrush x:Key="d-secondary">#2c2c2c</SolidColorBrush>
         <SolidColorBrush x:Key="d-accent">#191a1c</SolidColorBrush>
         <SolidColorBrush x:Key="d-Text">#fff</SolidColorBrush>
-        
+
         <SolidColorBrush x:Key="d-primary2">#c1eeff</SolidColorBrush>
         <SolidColorBrush x:Key="d-secondary2">#191a1c</SolidColorBrush>
         <SolidColorBrush x:Key="d-accent2">#2c2c2c</SolidColorBrush>
@@ -55,7 +56,7 @@
             <Setter Property="InactiveBackground" Value="{DynamicResource d-accent}"/>
             <Setter Property="ButtonWidth" Value="100"/>
         </Style>
-        
+
         
         
         <!--Grid Styles-->
