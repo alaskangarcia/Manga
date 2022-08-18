@@ -1,0 +1,52 @@
+﻿<Window x:Class="Manga.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Manga"
+        xmlns:controlls="clr-namespace:Manga.Controlls"
+        xmlns:piece="clr-namespace:Manga.Controlls.peices"
+        xmlns:search="clr-namespace:Manga.Controlls.Search"
+        xmlns:views="clr-namespace:Manga.Controlls.views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        WindowState="Maximized"
+        WindowStyle="None" 
+        controlls:chapterListSingle.Tap="single_Tap"
+        views:longView.Full="chapter_Full"
+        views:standardView.Full="chapter_Full" 
+        views:standardView.Kill="view_Kill"
+        controlls:CStack.Rem="Window_Rem"
+        controlls:defaultPage.OpenList="default_ListOpen"
+        controlls:defaultPage.OpenRandom="default_RandomOpen"
+        controlls:defaultPage.OpenSearchID="default_IDSearchOpen"
+        controlls:defaultPage.OpenSearchName="default_NameSearchOpen"
+        controlls:listManga.MangaDisRaise="mangaListRaise_Tap"
+        search:searchID.MangaDisRaise="searchRaise_Tap"
+        search:searchName.MangaDisRaise="searchNameRise_Tap"
+        controlls:mangaInfo.ReadFirst="readFirst_Open"
+        controlls:mangaInfo.ContinueRead="readContinue_Open"
+        search:searchID.SaveList="SaveList"
+        controlls:mangaInfo.CloseInfo="Window_CloseInfo"
+        controlls:mangaInfo.SaveList="SaveList"
+        views:longView.SaveList="SaveList"
+        views:standardView.SaveList="SaveList"
+        Focusable="True">
+    <Window.Resources>
+
+    </Window.Resources>
+    <Grid Name="parrentGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Style="{DynamicResource gridAccent}" x:Name="upperGrid">
+            <controlls:CStack Style="{DynamicResource cStackStyle}" Grid.Column="0" x:Name="buttonStack" controlls:cButton.Tap="buttonStack_Tap" controlls:cButton.Kill="buttonStack_Kill"/>
+        </Grid>
+        <!--ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden"-->
+        <Grid Grid.Row="1" x:Name="lowerGrid" Style="{DynamicResource gridSecondary}">
+            <TextBlock x:Name="tmpTxt" Visibility="Hidden"/>
+        </Grid>
+        <!--/ScrollViewer-->
+    </Grid>
+</Window>
