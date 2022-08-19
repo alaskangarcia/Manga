@@ -92,7 +92,7 @@ namespace Manga.Controlls.Search
             string desc = "No Description";
             if (json["data"]!["attributes"]!["description"].HasValues)
             {
-                foreach (var tok in json["data"]["attributes"]["title"].Values())
+                foreach (var tok in json["data"]["attributes"]["description"].Values())
                 {
                     desc = tok.ToString();
                     break;
