@@ -19,6 +19,7 @@ using Manga.Controlls.views;
 using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Manga
 {
@@ -28,17 +29,20 @@ namespace Manga
     public partial class MainWindow : Window
     {
         HttpClient client = new HttpClient();
-        string mangaUri = "";
         GridLength rowHeight;
-        string DOCPATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        const string PATH = @"C:\Users\kyleg\programTMP\Manga\";
-        const string PATHLIST = PATH + "list.json";
-        string errorLog = "";
+        string ROOT = @"\MangaViewer";
+        string ROOTPATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        string PATH;
+        string PATHPATH = @"\Manga.manga";
+        string PATHLIST;
         mangaController controller;
         
         public MainWindow()
         {
             InitializeComponent();
+            PATH = ROOTPATH + ROOT;
+            PATHLIST = PATH+PATHPATH;
+            getPath();
             controller = new mangaController();
             loadList();
             controller.path = PATH;
@@ -48,6 +52,19 @@ namespace Manga
             lowerGrid.Children.Add(defaultPage);
             buttonStack.addCButton(newButton(defaultPage));
             rowHeight = parrentGrid.RowDefinitions[0].Height;
+        }
+        private void getPath()
+        {
+            if (!Directory.Exists(PATH))
+            {
+                Directory.CreateDirectory(PATH);
+            }
+            if (!File.Exists(PATHLIST))
+            {
+                File.WriteAllText(PATHLIST,"");
+            }
+
+            
         }
         private void loadList()
         {
