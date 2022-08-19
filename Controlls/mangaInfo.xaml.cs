@@ -78,6 +78,18 @@ namespace Manga.Controlls
             }
             
         }
+        private bool CheckConnection()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                return false;
+            }
+            if (!InternetAvailability.InternetAvailability_IsAvailable())
+            {
+                return false;
+            }
+            return true;
+        }
 
         public MangaObj manga
         {
@@ -231,6 +243,12 @@ namespace Manga.Controlls
         }
         private async void updateBut_Tap(object sender, RoutedEventArgs e)
         {
+
+            if (!CheckConnection())
+            {
+                updateBut.Text = "No Internet";
+                return;
+            }
            
             if (ispauseUp && isdownloadUp)
             {
@@ -245,17 +263,6 @@ namespace Manga.Controlls
                 await updateChapters();
             }
             
-        }
-        private bool CheckConnection()
-        {
-            byte[] googledns = { 0x08, 0x08, 0x08, 0x08 };
-            Ping ping = new Ping();
-            PingReply reply = ping.Send(new IPAddress(googledns));
-            if (reply.Status == IPStatus.Success)
-            {
-                return true;
-            }
-            return false;
         }
 
         private async Task updateChapters()
@@ -316,7 +323,6 @@ namespace Manga.Controlls
                 list.ForG = ForG;
                 list.ChapterDic = manga.ChaptersDic;
                 list.Margin = new Thickness(10);
-                list.Name = "Chapter" + chapters1.Key.ToString().Replace(".", "_");
                 list.Chapters = chapters1.Value;
                 cLists.Children.Add(list);
             }
@@ -350,7 +356,7 @@ namespace Manga.Controlls
         private async void getScan(Chapter chapter)
         {
             string name = controller.getGroup(chapter.scanID);
-            if(name == "error")
+            if(name == "error" || name == "err")
             {
                 controller.setGroup(chapter.scanID, await updateScan(chapter));
                 chapter.scanNAme = controller.getGroup(chapter.scanID);
@@ -364,6 +370,10 @@ namespace Manga.Controlls
         }
         private async Task<string> updateScan(Chapter chapter)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                return "err";
+            }
             HttpClient client = new HttpClient();
             HttpResponseMessage message = await client.GetAsync($@"https://api.mangadex.org/group/{chapter.scanID}");
             try
@@ -435,6 +445,11 @@ namespace Manga.Controlls
 
         private async void downloadBut_Tap(object sender, RoutedEventArgs e)
         {
+            if (!CheckConnection())
+            {
+                downloadBut.Text = "No Internet";
+                return;
+            }
             if (ispause && isdownload)
             {
                 isdownload = false;
@@ -528,5 +543,6 @@ namespace Manga.Controlls
                 updateList();
             }
         }
+
     }
 }

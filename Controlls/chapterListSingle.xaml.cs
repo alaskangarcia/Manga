@@ -32,7 +32,6 @@ namespace Manga.Controlls
             InitializeComponent();
             this.chapter = chapter;
             this.controller = controller;
-            this.client = client;
             chapterN.Text = "Chapter. " + chapter.chapterN;
             getScan();
             if (chapter.isDownloaded)
@@ -53,12 +52,29 @@ namespace Manga.Controlls
             }
             this.manga = manga;
         }
+        private bool CheckConnection()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                return false;
+            }
+            if (!InternetAvailability.InternetAvailability_IsAvailable())
+            {
+                return false;
+            }
+            return true;
+        }
 
         private async void getScan()
         {
             string name = controller.getGroup(chapter.scanID);
             if(name == "error"|| name == "err")
             {
+                if (!CheckConnection())
+                {
+                    scanG.Text = "No Internet";
+                    return;
+                }
                 controller.setGroup(chapter.scanID, await updateScan());
                 chapter.scanNAme = controller.getGroup(chapter.scanID);
                 RoutedEventArgs routed = new RoutedEventArgs(chapterListSingle.SaveEvent);
@@ -85,17 +101,6 @@ namespace Manga.Controlls
             {
                 return "No Group";
             }
-        }
-        private bool CheckConnection()
-        {
-            byte[] googledns = { 0x08, 0x08, 0x08, 0x08 };
-            Ping ping = new Ping();
-            PingReply reply = ping.Send(new IPAddress(googledns));
-            if (reply.Status == IPStatus.Success)
-            {
-                return true;
-            }
-            return false;
         }
 
         public bool longStrip

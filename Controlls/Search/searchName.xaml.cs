@@ -52,18 +52,23 @@ namespace Manga.Controlls.Search
         {
             //this.Visibility = System.Windows.Visibility.Collapsed;
             Focus();
+            if (!CheckConnection())
+            {
+                return;
+            }
             await search();
         }
         private bool CheckConnection()
         {
-            byte[] googledns = { 0x08, 0x08, 0x08, 0x08 };
-            Ping ping = new Ping();
-            PingReply reply = ping.Send(new IPAddress(googledns));
-            if (reply.Status == IPStatus.Success)
+            if (!NetworkInterface.GetIsNetworkAvailable())
             {
-                return true;
+                return false;
             }
-            return false;
+            if (!InternetAvailability.InternetAvailability_IsAvailable())
+            {
+                return false;
+            }
+            return true;
         }
 
         private async Task search()

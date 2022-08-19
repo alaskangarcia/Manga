@@ -19,7 +19,6 @@
                 <RowDefinition Height=".05*"/>
                 <RowDefinition Height=".95*"/>
             </Grid.RowDefinitions>
-            <local:cButton Grid.Row="0" Grid.Column="2" Width="30" HorizontalAlignment="Right" local:cButton.Tap="close_Tap" ToolTip="Close"/>
             <Grid Grid.RowSpan="2">
                 <StackPanel>
                     <local:cButton Text="List" CornerRadus="20" Height="40" Background="{Binding ElementName=root, Path=BackgroundS}" BType="1" Margin="0 20 0 20" Tap="List_Tap"/>

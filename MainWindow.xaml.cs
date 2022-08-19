@@ -35,6 +35,7 @@ namespace Manga
         const string PATHLIST = PATH + "list.json";
         string errorLog = "";
         mangaController controller;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -346,6 +347,11 @@ namespace Manga
                 lowerGrid.Children.Remove(held);
                 buttonStack.Focus();
             }
+        }
+
+        private void close_Tap(object sender,RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

@@ -40,16 +40,25 @@ namespace Manga.Controlls.Search
             await search();
         }
 
-
+        private bool CheckConnection()
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                return false;
+            }
+            if (!InternetAvailability.InternetAvailability_IsAvailable())
+            {
+                return false;
+            }
+            return true;
+        }
 
         private async Task search()
         {
-
-            /*
             if (!CheckConnection())
             {
                 return;
-            }*/
+            }
             string search = search_Bar.SearchText;
 
             foreach (MangaObj  obj in controller.Mangas)
@@ -73,10 +82,26 @@ namespace Manga.Controlls.Search
                     coverart = a["id"].ToString();
                 }
             }
+            string title = "";
+
+            foreach (var tok in json["data"]["attributes"]["title"].Values())
+            {
+                title = tok.ToString();
+                break;
+            }
+            string desc = "No Description";
+            if (json["data"]!["attributes"]!["description"].HasValues)
+            {
+                foreach (var tok in json["data"]["attributes"]["title"].Values())
+                {
+                    desc = tok.ToString();
+                    break;
+                }
+            }
             controller.newManga(
                 json["data"]!["id"]!.ToString(),
-                filterChar(json["data"]!["attributes"]!["title"]!["en"]!.ToString()),
-                json["data"]!["attributes"]!["description"]!["en"]!.ToString(),
+                filterChar(title),
+                desc,
                 coverart);
 
             MangaObj manga = controller.getLatest();
@@ -204,17 +229,6 @@ namespace Manga.Controlls.Search
         public static readonly DependencyProperty BackGProperty =
             DependencyProperty.Register("BackG", typeof(SolidColorBrush), typeof(searchID), new PropertyMetadata(new SolidColorBrush(Colors.White)));
 
-        private bool CheckConnection()
-        {
-            byte[] googledns = { 0x08, 0x08, 0x08, 0x08};
-            Ping ping = new Ping();
-            PingReply reply = ping.Send(new IPAddress(googledns));
-            if(reply.Status == IPStatus.Success)
-            {
-                return true;
-            }
-            return false;
-        }
 
 
 

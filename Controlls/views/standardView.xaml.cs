@@ -138,7 +138,7 @@ namespace Manga.Controlls.views
                     images.Add(new BitmapImage(new Uri(pageUri)));
                 }
                 setPage(images.Count-1);
-                chapterCountText.Text = (page + 1) + @"/" + Chapter.pagesUri.Count;
+                chapterCountText.Text = "Chapter "+Chapter.chapterN+" "+(page + 1) + @"/" + Chapter.pagesUri.Count;
             }
             else
             {
@@ -147,7 +147,7 @@ namespace Manga.Controlls.views
                     images.Add(new BitmapImage(new Uri(pageUri)));
                 }
                 setPage(0);
-                chapterCountText.Text = (page + 1) + @"/" + Chapter.pagesUri.Count;
+                chapterCountText.Text = "Chapter " + Chapter.chapterN + " " + (page + 1) + @"/" + Chapter.pagesUri.Count;
 
             }
             
@@ -177,7 +177,7 @@ namespace Manga.Controlls.views
             }
             page--;
             pageDisplay.Source = images[page];
-            chapterCountText.Text = (page + 1) + @"/" + Chapter.pagesUri.Count;
+            chapterCountText.Text = "Chapter " + Chapter.chapterN + " " + (page + 1) + @"/" + Chapter.pagesUri.Count;
         }
 
         public void nextPage()
@@ -189,7 +189,7 @@ namespace Manga.Controlls.views
             }
             page++;
             pageDisplay.Source = images[page];
-            chapterCountText.Text = (page+1) + @"/" + Chapter.pagesUri.Count;
+            chapterCountText.Text = "Chapter " + Chapter.chapterN + " " + (page+1) + @"/" + Chapter.pagesUri.Count;
         }
         private void nextChapter()
         {
