@@ -31,7 +31,7 @@ namespace Manga
         HttpClient client = new HttpClient();
         GridLength rowHeight;
         string ROOT = @"\MangaViewer";
-        string ROOTPATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        string ROOTPATH = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         string PATH;
         string PATHPATH = @"\Manga.manga";
         string PATHLIST;
